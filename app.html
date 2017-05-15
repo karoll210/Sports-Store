@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="sportsStore">
+<head>
+	<title>SportStore</title>
+	<script src="angular.js"></script>
+	<script src="angular-locale-pl-pl.js"></script>
+	<link href="bootstrap.css" rel="stylesheet" />
+	<link href="bootstrap-theme.css" rel="stylesheet" />
+	<script>
+		angular.module("sportsStore", ["customFilters", "cart", "ngRoute"])
+		.config(function($routeProvider){
+
+			$routeProvider.when("/complete",{
+				templateUrl: "views/thankYou.html"
+			});
+
+			$routeProvider.when("/placeorder", {
+				templateUrl: "/views/placeOrder.html"
+			});
+
+			$routeProvider.when("/checkout", {
+				templateUrl: "/views/checkoutSummary.html"
+			});
+
+			$routeProvider.when("/products", {
+				templateUrl: "/views/productList.html"
+			});
+
+			$routeProvider.otherwise({
+				templateUrl: "/views/productList.html"
+			});
+		});
+	</script>
+	<script src="controllers/sportsStore.js"></script>
+	<script src="filters/customFilters.js"></script>
+	<script src="controllers/productListControllers.js"></script>
+	<script src="components/cart/cart.js"></script>
+	<script src="ngmodules/angular-route.js"></script>
+	<script src="controllers/checkoutControllers.js"></script>
+</head>
+<body ng-controller="sportsStoreCtrl">
+	<div class="navbar navbar-inverse">
+		<a class="navbar-brand" href="#">SKLEP SPORTOWY</a>
+		<cart-summary />
+	</div>
+	<div class="alert alert-danger" ng-show="data.error">
+		Błąd ({{data.error.status}}). Dane produktu nie zostały wczytane.
+		<a href="app.html" class="alter-link">Kliknij tutaj, aby spróbować ponownie</a>
+	</div>
+	
+	<ng-view />
+
+</body>
+</html>
